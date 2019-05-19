@@ -9,13 +9,18 @@ import time
 m = time.strftime("%M")
 
 # Minutes until the Tram leaves
-left = 19 - (int(m) % 10)
+left = 9 - (int(m) % 10)
+
+if left == 0:
+    print("10 Min.")
+else:
+    print(left, "Min.")
 
 # error when minutes between x0 and x3
-if int(m) % 10 > 3:
-    print(left, "Min.")
-else:
-    print(left - 10, "Min.")
+#if int(m) % 10 > 3:
+#    print(left, "Min.")
+#else:
+#    print(left - 10, "Min.")
 
 """
 # Old script for later use

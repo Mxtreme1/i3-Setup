@@ -1,5 +1,4 @@
-# i3 config file (v4)
-
+# i3 config file (v4) 
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 
@@ -7,11 +6,9 @@
 #Selects the background image (upper one takes random from Pictures folder)
 #
 # exec --no-startup-id feh --randomize --bg-fill ~/Pictures/*
-exec --no-startup-id feh --bg-fill ~/Pictures/axosoft-gitkraken-chinese-new-year-landscape-Keif.png
-
+exec --no-startup-id feh --bg-fill ~/Pictures/Greek_thermal.jpg
 
 #  Background Image}}} # 
-
 
 #  Keybinds {{{ # 
 #  Keybinds for Audio keys (raise, lower, mute/unmute, pause/unpause)
@@ -22,7 +19,6 @@ bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+ && pkill -R
 bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle && pkill -RTMIN+10 i3blocks
 bindsym F12 exec playerctl play-pause;; exec mocp -G
 #  }}} Fold description # 
-
 
 #  Open or kill programs ------------------------------------------------ {{{ # 
 
@@ -37,6 +33,8 @@ bindsym $mod+d exec dmenu_run
 # start anki (memory card system)
 bindsym $mod+a --release exec anki
 
+# put workrave in normal (active) mode
+bindsym $mod+w exec "~/workrave_dbus/workrave_cmi.sh start"
 
 #  }}} Opening programs # 
 
@@ -45,26 +43,33 @@ bindsym $mod+a --release exec anki
 # kill focused window
 bindsym $mod+BackSpace kill
 
+# stop current hamster-time-tracker activity
+bindsym $mod+t exec "hamster_stop"
+
+# put workrave in suspended (inactive) mode
+bindsym $mod+s exec "~/workrave_dbus/workrave_cmi.sh stop"
+
+
 #  }}} Kill programs # 
 
 #  }}} Open or kill programs # 
 
 
 #  Font ---------------------------------------------------------------- {{{ # 
-
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 8
-# font pango:System San Francisco Display 8
+# Modern looking Font oriented at Mac OS Font
+font pango:System San Francisco Display 8
 
 #  }}} Font  # 
 
 
-#  Modifier + Motion keys   -------------------------------------------- {{{ # 
-set $mod Mod4
 
-# use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
+
+
+#  Modifier + Motion keys   -------------------------------------------- {{{ # 
+set $mod Mod3 
+# use Mouse+$mod to drag floating windows to their wanted position floating_modifier $mod
 
 # use these keys for focus, movement, and resize directions when reaching for
 # the arrows is not convenient
@@ -110,7 +115,7 @@ bindsym $mod+b split v
 #  Layouting + Window Behavior    -------------------------------------- {{{ # 
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+ü layout stacking
+# bindsym $mod+ü layout stacking
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
@@ -167,22 +172,23 @@ bindsym $mod+minus scratchpad show
 
 # switch to workspace
 # Default workspaces 4-6
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
 bindsym $mod+4 workspace 4
 bindsym $mod+5 workspace 5
 bindsym $mod+6 workspace 6
-# Other used workspaces
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 # basically disabled these
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
 
 # move focused container to workspace
+# moving container to workspace 2 proved impossible, as the keybind is already
+# in use. Therefore mod+Control+2 is used instead
 bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Control+2 move container to workspace 2
 bindsym $mod+Shift+3 move container to workspace 3
 bindsym $mod+Shift+4 move container to workspace 4
 bindsym $mod+Shift+5 move container to workspace 5
@@ -203,18 +209,22 @@ bindsym $mod+c reload
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec i3-msg exit
+#
+# lock screen
+# bindsym $mod+Shift+l exec i3lock -e -f
+# Xlock is used, as it has more style
+bindsym $mod+Shift+l exec ~/.xlock/2.sh -s -b -o ~/.xlock/key-256.png  
 
 #  }}} Reload/Restart/Close i3 # 
 
 
 #  Gnome Utils (Screenshots, screensaver, etc)  ------------------------ {{{ # 
 
-# lock screen
-bindsym Shift+Mod4+l exec ~/.i3/lock.sh
+
 
 # introduce screenshots using scrot and move it directly to tmp folder
 # (handy for building anki cards)
-bindsym --release Print exec scrot -s -e 'mv $f /tmp/'
+bindsym --release F8 exec scrot -s -e 'mv $f /tmp/'
 
 bindsym --release Control+Print exec "python ~/code_reviewer/build_code_review.py"
 
@@ -241,14 +251,6 @@ client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color      
 
 
 #  i3 bar     ---------------------------------------------------------- {{{ # 
-
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-# bar {
-#         status_command i3status -c ~/.i3/i3status.conf
-#         tray_output eDP1
-#         font pango:monospace 14
-# }
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -299,4 +301,4 @@ for_window [class="Workrave"] move window to scratchpad
 
 
 # Run this fine script, that handles the startup specifics!
-exec "$HOME/.i3/i3_layout_start.sh"
+exec "$HOME/i3_layout_start.sh"
