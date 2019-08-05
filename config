@@ -7,7 +7,7 @@
 #Selects the background image (upper one takes random from Pictures folder)
 #
 # exec --no-startup-id feh --randomize --bg-fill ~/Pictures/*
-exec --no-startup-id feh --bg-fill ~/Pictures/axosoft-gitkraken-chinese-new-year-landscape-Keif.png
+exec --no-startup-id feh --bg-fill ~/Pictures/mathias-bach-laursen-icOzM-yHXiQ-unsplash.jpg
 
 
 #  Background Image}}} # 
